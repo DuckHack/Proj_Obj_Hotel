@@ -1,0 +1,52 @@
+.jumbotron.filter {
+    padding-top: 10px;
+    padding-bottom: 20px
+}
+
+.jumbotron.rooms {
+    padding-top: 10px;
+    padding-bottom: 20px
+}
+
+.irs-bar {
+    background: #ed5565
+}
+
+.irs-min,
+.irs-max {
+    font-size: 12px;
+    font-weight: bold;
+    color: black
+}
+
+.irs-single {
+    /* visibility: visible !important; */
+    font-size: 12px;
+    font-weight: bold
+}
+
+.irs-from,
+.irs-to {
+    font-size: 12px;
+    font-weight: bold
+}
+
+.irs-grid-text {
+    font-size: 12px;
+    font-weight: bold;
+    color: black
+}
+
+
+
+#checkboxes {
+    /* display: none; */
+    padding: 10px;
+    background: #e8ebed;
+    border-radius: 3px;
+
+}
+
+#checkboxes label {
+    display: block;
+}
