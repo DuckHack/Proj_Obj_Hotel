@@ -9,6 +9,7 @@ $(document).ready(function () {
             localStorage.setItem('currentUser', JSON.stringify(formData))
             var user = JSON.parse(localStorage.getItem('currentUser'));
             console.log(user)
+            user.type = "User"
             if (user.type == "User") {
                 document.location.pathname = "/pages/userHome/userHome.html";
             } else if (user.type == "Admin") {

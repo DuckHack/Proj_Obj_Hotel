@@ -13,6 +13,7 @@ $(document).ready(function () {
                 to: 1000,
                 postfix: "zł"
             });
+            getRooms();
         };
 
         var getSearch = function () {
@@ -30,6 +31,10 @@ $(document).ready(function () {
                 petFriendly: $("#petFriendly").is(':checked')
             }
             console.log(searchObj);
+        };
+
+        var getRooms = function () {
+            console.log('Rooms updated')
         };
 
         return {
