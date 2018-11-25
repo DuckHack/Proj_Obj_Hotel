@@ -6,12 +6,22 @@ $(document).ready(function () {
         };
 
         var addRoom = function () {
+
+            var room = {
+                "number": $("#inputNumber").val(),
+                "rating": $("#inputEmail").val(),
+                "price": $("#inputPrice").val(),
+                "wiFi": $("#wifi").is(':checked'),
+                "conditioning": $("#conditioning").is(':checked'),
+                "petFriendly": $("#petFriendly").is(':checked'),
+                "roomClass": $("#typeRoom").val()
+            }
             // DO POST
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
                 url: "http://localhost:8080/rooms/add",
-                data: JSON.stringify(User),
+                data: JSON.stringify(room),
                 dataType: 'json',
                 success: function (result) {
                     $.notifyDefaults({
@@ -58,7 +68,7 @@ $(document).ready(function () {
                             var visitor = "<tr><td>" + result[i].firstName + "</td><td>" + result[i].lastName + "</td><td>" + result[i].email + "</td></tr>";
                             $('.employees tbody').append(visitor)
                         } else if (result[i].type == "User") {
-                            var visitor = "<tr><td>" + result[i].firstName + "</td><td>" + result[i].lastName + "</td><td>" + result[i].email + "</td><td>" + (result[i].reservationsNum == null ? '-' : result[i].reservationsNum)+ "</td></tr>";
+                            var visitor = "<tr><td>" + result[i].firstName + "</td><td>" + result[i].lastName + "</td><td>" + result[i].email + "</td><td>" + (result[i].reservationsNum == null ? '-' : result[i].reservationsNum) + "</td></tr>";
                             $('.visitors tbody').append(visitor)
                         }
                     });
