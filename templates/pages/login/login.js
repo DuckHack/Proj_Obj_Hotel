@@ -1,20 +1,48 @@
 $(document).ready(function () {
     var login = (function () {
         var signIn = function () {
-            var formData = {
-                email: $("#inputEmail").val(),
-                password: $("#inputPassword").val(),
-                type: $("#typeSelect").val()
+            var User = {
+                "email": $("#inputEmail").val(),
+                "password": $("#inputPassword").val()
             }
-            localStorage.setItem('currentUser', JSON.stringify(formData))
-            var user = JSON.parse(localStorage.getItem('currentUser'));
-            console.log(user)
-            user.type = "User"
-            if (user.type == "User") {
-                document.location.pathname = "/pages/userHome/userHome.html";
-            } else if (user.type == "Admin") {
-                document.location.pathname = "/pages/adminHome/adminHome.html";
-            }
+
+            // DO POST
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "http://localhost:8080/users/email",
+                data: JSON.stringify(User),
+                dataType: 'json',
+                success: function (result) {
+                    console.log(result)
+                    $.notifyDefaults({
+                        type: 'success',
+                        allow_dismiss: false
+                    });
+                    $.notify('Account logged successfully!');
+
+                    localStorage.setItem('currentUser', JSON.stringify(result))
+
+                    if (result.type == "User") {
+                        document.location.pathname = "/pages/userHome/userHome.html";
+                    } else if (result.type == "Admin") {
+                        document.location.pathname = "/pages/adminHome/adminHome.html";
+                    }
+                },
+                error: function (e) {
+                    console.log(e)
+                    $.notifyDefaults({
+                        type: 'danger',
+                        allow_dismiss: false
+                    });
+                    $.notify('Something went wrong!');
+                }
+            });
+            cleanUp();
+        };
+        var cleanUp = function () {
+            $("#inputEmail").val('');
+            $("#inputPassword").val('');
         };
         var isLogged = function () {
             if (localStorage.getItem('currentUser')) {

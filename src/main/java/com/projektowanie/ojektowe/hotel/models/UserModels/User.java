@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 
 @Data
@@ -19,6 +17,7 @@ public class User {
     private static final String systemAdmin = "Admin";
 
     @Id
+    @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private int id;
     private String type;
     private String firstName;

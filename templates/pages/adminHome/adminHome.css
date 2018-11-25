@@ -44,6 +44,9 @@
     padding: 10px;
     background: #e8ebed;
     border-radius: 3px;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
 
 }
 

@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rooms")
-@CrossOrigin(origins = "http://localhost:5050")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class RoomController {
 
     private RoomService roomService;
