@@ -49,11 +49,33 @@ $(document).ready(function () {
         };
 
         var getVisitors = function () {
-            $.notifyDefaults({
-                type: 'success',
-                allow_dismiss: false
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/users/all",
+                success: function (result) {
+                    $.each(result, function (i, visitor) {
+                        if (result[i].type == "Admin") {
+                            var visitor = "<tr><td>" + result[i].firstName + "</td><td>" + result[i].lastName + "</td><td>" + result[i].email + "</td></tr>";
+                            $('.employees tbody').append(visitor)
+                        } else if (result[i].type == "User") {
+                            var visitor = "<tr><td>" + result[i].firstName + "</td><td>" + result[i].lastName + "</td><td>" + result[i].email + "</td><td>" + (result[i].reservationsNum == null ? '-' : result[i].reservationsNum)+ "</td></tr>";
+                            $('.visitors tbody').append(visitor)
+                        }
+                    });
+                    $.notifyDefaults({
+                        type: 'success',
+                        allow_dismiss: false
+                    });
+                    $.notify('Users list is up to date!');
+                },
+                error: function (e) {
+                    $.notifyDefaults({
+                        type: 'danger',
+                        allow_dismiss: false
+                    });
+                    $.notify('Something went wrong!');
+                }
             });
-            $.notify('Visitors list is up to date!');
         };
 
         return {
