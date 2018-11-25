@@ -50,3 +50,29 @@
 #checkboxes label {
     display: block;
 }
+
+.thumbnail{
+    margin: 5px 0px
+}
+
+.green {
+    background: green;
+}
+
+.media-body {
+    vertical-align: middle;
+    padding-right: 5px
+}
+
+.media-wrapper {
+        /* display: flex; */
+        height: 230px;
+        /* height: 100%; */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+}
+
+.pricePlan {
+    color: #ed5565
+}
