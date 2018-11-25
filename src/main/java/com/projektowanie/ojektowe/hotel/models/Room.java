@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Data
@@ -16,6 +17,12 @@ import javax.validation.constraints.NotEmpty;
 public class Room {
     @Id
     private Integer number;
-    @NotEmpty
-    private Integer guestPlaces;
+    private Integer adult;
+    private Integer children;
+    private Double rating;
+    private Integer price;
+    private Boolean wiFi;
+    private Boolean conditioning;
+    private Boolean petFriendly;
+    private Integer roomClass;
 }
