@@ -16,10 +16,41 @@ $(document).ready(function () {
             getRooms();
         };
 
+        var getFree = function () {
+            var searchObj = {
+                start: $('#datepicker [name="start"]').val(),
+                end: $('#datepicker [name="end"]').val()
+            }
+
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/rooms/getFree",
+                success: function (result) {
+                    $.each(result, function (i, visitor) {
+                        console.log(result)
+                    });
+                    $.notifyDefaults({
+                        type: 'success',
+                        allow_dismiss: false
+                    });
+                    $.notify('Users list is up to date!');
+                },
+                error: function (e) {
+                    $.notifyDefaults({
+                        type: 'danger',
+                        allow_dismiss: false
+                    });
+                    $.notify('Something went wrong!');
+                }
+            });
+
+            console.log(searchObj);
+        };
+
         var getSearch = function () {
             var searchObj = {
-                dateStart: $('#datepicker [name="start"]').val(),
-                dateEnd: $('#datepicker [name="end"]').val(),
+                start: $('#datepicker [name="start"]').val(),
+                end: $('#datepicker [name="end"]').val(),
                 priceStart: $('#range_03').val().split(';')[0],
                 priceEnd: $('#range_03').val().split(';')[1],
                 adult: $('#typeAdult').val(),
@@ -30,6 +61,29 @@ $(document).ready(function () {
                 conditioning: $("#conditioning").is(':checked'),
                 petFriendly: $("#petFriendly").is(':checked')
             }
+
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/reservations/filterSearch",
+                success: function (result) {
+                    $.each(result, function (i, visitor) {
+                        console.log(result)
+                    });
+                    $.notifyDefaults({
+                        type: 'success',
+                        allow_dismiss: false
+                    });
+                    $.notify('Users list is up to date!');
+                },
+                error: function (e) {
+                    $.notifyDefaults({
+                        type: 'danger',
+                        allow_dismiss: false
+                    });
+                    $.notify('Something went wrong!');
+                }
+            });
+
             console.log(searchObj);
         };
 
@@ -39,7 +93,8 @@ $(document).ready(function () {
 
         return {
             init: init,
-            getSearch: getSearch
+            getSearch: getSearch,
+            getFree: getFree
         };
     })();
     userHome.init();
@@ -47,6 +102,10 @@ $(document).ready(function () {
 
     $('#search').click(function () {
         userHome.getSearch();
+    })
+
+    $('#checkDate').click(function () {
+        userHome.getFree();
     })
 
 

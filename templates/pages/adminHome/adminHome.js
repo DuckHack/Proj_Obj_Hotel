@@ -28,8 +28,7 @@ $(document).ready(function () {
                         type: 'success',
                         allow_dismiss: false
                     });
-                    $.notify('Account added successfully!<br>Hello ' + User.firstname);
-                    document.location.pathname = "/pages/login/login.html";
+                    $.notify('Room added successfully!');
                 },
                 error: function (e) {
                     $.notifyDefaults({
@@ -51,11 +50,29 @@ $(document).ready(function () {
         };
 
         var getRooms = function () {
-            $.notifyDefaults({
-                type: 'success',
-                allow_dismiss: false
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/rooms/getAll",
+                success: function (result) {
+                    $.each(result, function (i, visitor) {
+                        console.log(result)
+                            var room ;
+                            $('.employees tbody').append(visitor) 
+                    });
+                    $.notifyDefaults({
+                        type: 'success',
+                        allow_dismiss: false
+                    });
+                    $.notify('Users list is up to date!');
+                },
+                error: function (e) {
+                    $.notifyDefaults({
+                        type: 'danger',
+                        allow_dismiss: false
+                    });
+                    $.notify('Something went wrong!');
+                }
             });
-            $.notify('Rooms list is up to date!');
         };
 
         var getVisitors = function () {

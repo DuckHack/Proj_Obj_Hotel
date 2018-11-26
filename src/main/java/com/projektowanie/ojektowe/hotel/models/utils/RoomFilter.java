@@ -11,12 +11,11 @@ public class RoomFilter {
     private Date start;
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date end;
-    private Integer adult;
-    private Integer children;
     private Double rating;
     private Integer startPrice;
     private Integer endPrice;
     private Boolean wiFi;
     private Boolean conditioning;
     private Boolean petFriendly;
+    private String roomClass;
 }

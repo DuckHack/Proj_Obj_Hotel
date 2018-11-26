@@ -73,8 +73,6 @@ public class RoomService implements IRoomService {
                 .filter(room -> ( !roomFilter.getWiFi() || roomFilter.getWiFi().equals(room.getWiFi())) )
                 .filter(room -> ( !roomFilter.getPetFriendly() || roomFilter.getPetFriendly().equals(room.getPetFriendly())) )
                 //without group reservations
-                .filter(room -> (room.getAdult() >= roomFilter.getAdult()))
-                .filter(room -> (room.getChildren() >= roomFilter.getChildren()))
                 .collect(Collectors.toList());
 
         //create map room-reservation list

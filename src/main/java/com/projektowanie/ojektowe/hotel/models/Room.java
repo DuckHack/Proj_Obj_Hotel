@@ -17,12 +17,10 @@ import javax.persistence.Table;
 public class Room {
     @Id
     private Integer number;
-    private Integer adult;
-    private Integer children;
     private Double rating;
     private Integer price;
     private Boolean wiFi;
     private Boolean conditioning;
     private Boolean petFriendly;
-    private Integer roomClass;
+    private String roomClass;
 }

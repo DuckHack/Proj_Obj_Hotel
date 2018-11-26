@@ -33,13 +33,11 @@ public class RoomTests {
         int adult = 3;
         int children = 0;
         int number = 1;
-        int roomClass = 1;
+        String roomClass = "single";
         boolean condition = true;
         boolean WiFi = false;
         boolean pet = true;
         this.room = new Room();
-        this.room.setAdult(adult);
-        this.room.setChildren(children);
         this.room.setNumber(number);
         this.room.setRoomClass(roomClass);
         this.room.setConditioning(condition);
