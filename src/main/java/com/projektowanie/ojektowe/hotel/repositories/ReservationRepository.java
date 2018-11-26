@@ -13,6 +13,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     List<Reservation> findAllByRoomNumber(@Param("room")Integer room);
 
     @Query(value = "select * from reservation where owner = :owner", nativeQuery = true)
-    Reservation findByReservePerson(@Param("owner")String person);
+    List<Reservation> findByReservePerson(@Param("owner")String person);
+
+    @Query(value = "select * from reservation where owner = :ownerId", nativeQuery = true)
+    List<Reservation> findByOwnerId(@Param("ownerId")Integer ownerId);
 
 }

@@ -30,7 +30,6 @@ public class RoomController {
     @PostMapping("/add")
     public ResponseEntity<Room> addRoom(@RequestBody Room room){
         Room addedRoom = roomService.add(room);
-//        RoomBuilder roomBuilder = new RoomBuilder();
         return ResponseEntity.status(HttpStatus.CREATED).body(addedRoom);
     }
 
@@ -41,9 +40,6 @@ public class RoomController {
 
     @GetMapping("/getFree")
     public List<Room> getFreeRooms(@RequestBody RoomFilter roomFilter){
-        //get all free rooms between two dates
-//        roomService.getFree(new Date(), new Date());
-
         return roomService.getFree(roomFilter);
     }
 }

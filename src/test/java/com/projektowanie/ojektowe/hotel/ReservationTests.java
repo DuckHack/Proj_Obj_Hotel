@@ -48,7 +48,7 @@ public class ReservationTests {
 
     @Before
     public void before(){
-        new Reservation(0, 1, 2, "UlCh",
+        new Reservation(0, 1, 2, "UlCh",1,
                 new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
                 new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime());
 //        new Reservation(0, 1, 2, "UlCh", new Date("20-10-2019"), new Date("20-11-2019"));
@@ -57,7 +57,7 @@ public class ReservationTests {
 
     @Test
     public void shouldAddFirstReservation() throws RoomAlreadyReservedException {
-        Reservation reservation = new Reservation(0, 1, 2, "UlCh",
+        Reservation reservation = new Reservation(0, 1, 2, "UlCh",2,
                 new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
                 new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime());
 

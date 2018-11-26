@@ -25,6 +25,7 @@ public class Reservation {
 //    @NotBlank
     //owner = firstName+secondName;
     private String owner;
+    private Integer ownerId;
     @Future
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
     private Date start;
