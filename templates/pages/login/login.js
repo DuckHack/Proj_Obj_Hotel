@@ -5,7 +5,7 @@ $(document).ready(function () {
                 "email": $("#inputEmail").val(),
                 "password": $("#inputPassword").val()
             }
-
+console.log(User)
             // DO POST
             $.ajax({
                 type: "POST",

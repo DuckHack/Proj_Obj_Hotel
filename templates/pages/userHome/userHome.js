@@ -50,6 +50,9 @@ $(document).ready(function () {
     })
 
 
+    $('#book').click(function () {
+        document.location.pathname = "/pages/reservation/reservation.html";
+    })
 
 
 })

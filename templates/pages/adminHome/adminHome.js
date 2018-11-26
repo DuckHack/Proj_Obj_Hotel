@@ -64,6 +64,7 @@ $(document).ready(function () {
                 url: "http://localhost:8080/users/all",
                 success: function (result) {
                     $.each(result, function (i, visitor) {
+                        console.log(result)
                         if (result[i].type == "Admin") {
                             var visitor = "<tr><td>" + result[i].firstName + "</td><td>" + result[i].lastName + "</td><td>" + result[i].email + "</td></tr>";
                             $('.employees tbody').append(visitor)
