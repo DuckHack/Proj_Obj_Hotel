@@ -40,4 +40,10 @@ public class CustomResponseEntityHandler {
     public final ResponseEntity RoomAlreadyReservedExceptionHandler(){
         return new ResponseEntity(HttpStatus.CONFLICT);
     }
+
+
+    @ExceptionHandler(ReservationEndBeforeStartException.class)
+    public final ResponseEntity ReservationEndBeforeStartExceptionHandler(){
+        return new ResponseEntity(HttpStatus.CONFLICT);
+    }
 }

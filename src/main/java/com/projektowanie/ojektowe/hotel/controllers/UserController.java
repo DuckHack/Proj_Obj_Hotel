@@ -4,6 +4,8 @@ import com.projektowanie.ojektowe.hotel.exceptions.UserAlreadyExistException;
 import com.projektowanie.ojektowe.hotel.exceptions.UserDoesentExistException;
 import com.projektowanie.ojektowe.hotel.models.UserModels.LoginUser;
 import com.projektowanie.ojektowe.hotel.models.UserModels.User;
+import com.projektowanie.ojektowe.hotel.repositories.UserRepository;
+import com.projektowanie.ojektowe.hotel.services.Factories.UserServiceFactory;
 import com.projektowanie.ojektowe.hotel.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,26 +19,22 @@ import java.util.List;
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class UserController {
 
-    private IUserService userService;
-
     @Autowired
-    public UserController(IUserService userService){
-        this.userService = userService;
-    }
+    private UserRepository userRepository;
 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) throws UserAlreadyExistException {
-        User addedUser = userService.registerUser(user);
+        User addedUser = UserServiceFactory.getUserService(userRepository).registerUser(user);
         return ResponseEntity.status(HttpStatus.OK).body(addedUser);
     }
 
     @PostMapping("/email")
     public ResponseEntity<User> login(@RequestBody LoginUser loginUser)throws UserDoesentExistException {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.logIn(loginUser));
+        return ResponseEntity.status(HttpStatus.OK).body(UserServiceFactory.getUserService(userRepository).logIn(loginUser));
     }
 
     @GetMapping("/all")
     public List<User> getAll(){
-        return userService.getAllUsers();
+        return UserServiceFactory.getUserService(userRepository).getAllUsers();
     }
 }

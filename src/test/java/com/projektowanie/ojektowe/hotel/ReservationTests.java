@@ -1,5 +1,6 @@
 package com.projektowanie.ojektowe.hotel;
 
+import com.projektowanie.ojektowe.hotel.exceptions.ReservationEndBeforeStartException;
 import com.projektowanie.ojektowe.hotel.exceptions.RoomAlreadyReservedException;
 import com.projektowanie.ojektowe.hotel.models.Reservation;
 import com.projektowanie.ojektowe.hotel.repositories.ReservationRepository;
@@ -48,16 +49,21 @@ public class ReservationTests {
 
     @Before
     public void before(){
-        new Reservation(0, 1, 2, "UlCh",1,
+        new Reservation(0, 1, 2, "UlCh",1, 100d,
                 new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
                 new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime());
-//        new Reservation(0, 1, 2, "UlCh", new Date("20-10-2019"), new Date("20-11-2019"));
+        Date date = new Date(2019, 1, 2);
+
+        System.out.println("date.getYear()->" + date.getYear() );
+        System.out.println("date.getTime()" + date.getTime() );
+        System.out.println("date" + date );
+        //        new Reservation(0, 1, 2, "UlCh", new Date("20-10-2019"), new Date("20-11-2019"));
 //        new Reservation(0, 1, 2, "UlCh", new Date("20-12-2019"), new Date("20-01-2020"));
     }
 
     @Test
-    public void shouldAddFirstReservation() throws RoomAlreadyReservedException {
-        Reservation reservation = new Reservation(0, 1, 2, "UlCh",2,
+    public void shouldAddFirstReservation() throws ReservationEndBeforeStartException {
+        Reservation reservation = new Reservation(0, 1, 2, "UlCh",2, 200d,
                 new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
                 new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime());
 

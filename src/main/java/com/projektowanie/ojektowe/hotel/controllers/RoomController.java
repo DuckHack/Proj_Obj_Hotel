@@ -2,6 +2,9 @@ package com.projektowanie.ojektowe.hotel.controllers;
 
 import com.projektowanie.ojektowe.hotel.models.Room;
 import com.projektowanie.ojektowe.hotel.models.utils.RoomFilter;
+import com.projektowanie.ojektowe.hotel.repositories.ReservationRepository;
+import com.projektowanie.ojektowe.hotel.repositories.RoomRepository;
+import com.projektowanie.ojektowe.hotel.services.Factories.RoomServiceFactory;
 import com.projektowanie.ojektowe.hotel.services.IMPL.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,31 +18,34 @@ import java.util.List;
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class RoomController {
 
-    private RoomService roomService;
+    private RoomRepository roomRepository;
+    private ReservationRepository reservationRepository;
 
     @Autowired
-    RoomController(RoomService roomService){
-        this.roomService = roomService;
+    public RoomController(RoomRepository roomRepository, ReservationRepository reservationRepository) {
+        this.roomRepository = roomRepository;
+        this.reservationRepository = reservationRepository;
     }
+
 
     @GetMapping("/getAll")
     public List<Room> getRooms(){
-        return roomService.getAll();
+        return RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).getAll();
     }
 
     @PostMapping("/add")
     public ResponseEntity<Room> addRoom(@RequestBody Room room){
-        Room addedRoom = roomService.add(room);
+        Room addedRoom = RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).add(room);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedRoom);
     }
 
     @DeleteMapping("/delete/{number}")
     public void deleteRoom(@PathVariable(value = "number") String number){
-        roomService.delete(Integer.parseInt(number));
+        RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).delete(Integer.parseInt(number));
     }
 
     @GetMapping("/getFree")
     public List<Room> getFreeRooms(@RequestBody RoomFilter roomFilter){
-        return roomService.getFree(roomFilter);
+        return RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).getFree(roomFilter);
     }
 }

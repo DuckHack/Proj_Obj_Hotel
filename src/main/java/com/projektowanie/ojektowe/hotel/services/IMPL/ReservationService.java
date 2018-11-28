@@ -1,32 +1,37 @@
 package com.projektowanie.ojektowe.hotel.services.IMPL;
 
 import com.projektowanie.ojektowe.hotel.exceptions.EmptyReservationFilterException;
+import com.projektowanie.ojektowe.hotel.exceptions.ReservationEndBeforeStartException;
 import com.projektowanie.ojektowe.hotel.models.Reservation;
+import com.projektowanie.ojektowe.hotel.models.utils.DISCOUNT_PERIODS;
 import com.projektowanie.ojektowe.hotel.models.utils.ReservationFilter;
 import com.projektowanie.ojektowe.hotel.repositories.ReservationRepository;
 import com.projektowanie.ojektowe.hotel.services.IReservationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
-@Service
+
 public class ReservationService implements IReservationService {
 
+    private final Integer reservationsNumForStartDiscount = 5;
+    private final Integer reservationsNumForHoldDiscountSize = 30;
     private ReservationRepository reservationRepository;
 
-    @Autowired
     public ReservationService(ReservationRepository reservationRepository){
         this.reservationRepository = reservationRepository;
     }
 
     @Override
-    public Reservation add(Reservation reservation){
-        return reservationRepository.save(reservation);
+    public Reservation add(Reservation reservation) throws ReservationEndBeforeStartException{
+//        for every celebration
+//        is celebraion
+//        use decorator for this celebration
+        if( reservation.getEnd().before(reservation.getStart())){
+            throw new ReservationEndBeforeStartException("Reservation end date can't be before start");
+        }
+        updateReservationByDiscount(reservation);
+        return reservationRepository.save( reservation );
     }
 
     @Override
@@ -45,5 +50,27 @@ public class ReservationService implements IReservationService {
     @Override
     public void delete(@NotBlank String id){
         reservationRepository.deleteById(Integer.parseInt(id));
+    }
+
+    private void updateReservationByDiscount(Reservation reservation){
+        int reservationsNum = reservationRepository.findByReservePerson(reservation.getOwner()).size();
+        for(DISCOUNT_PERIODS discountPeriod: DISCOUNT_PERIODS.values()){
+            if( isInPeriod(reservation, discountPeriod)){
+                reservation.setPrice( reservation.getPrice() - reservation.getPrice()*discountPeriod.getDiscountSize()/100);
+            }
+        }
+
+        if( reservationsNum >= reservationsNumForStartDiscount ){
+            reservation.setPrice( reservation.getPrice() - reservation.getPrice()*reservationsNum/100);
+        }else if( reservationsNum >= reservationsNumForHoldDiscountSize ){
+            reservation.setPrice( reservation.getPrice() - reservation.getPrice()*reservationsNumForHoldDiscountSize/100);
+        }
+    }
+
+    private Boolean isInPeriod(Reservation reservation, DISCOUNT_PERIODS discount_period){
+        Date discountStart = new Date(reservation.getStart().getYear(), discount_period.getStartMonth(), discount_period.getStartDay());
+        Date discountEnd = new Date(reservation.getEnd().getYear(), discount_period.getEndMonth(), discount_period.getEndDay());
+        return discountStart.getTime() == reservation.getStart().getTime() || discountStart.before(reservation.getStart()) &&
+                discountEnd.getTime() == reservation.getEnd().getTime() || discountEnd.before(reservation.getEnd());
     }
 }

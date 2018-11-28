@@ -7,39 +7,35 @@ import com.projektowanie.ojektowe.hotel.models.utils.RoomFilter;
 import com.projektowanie.ojektowe.hotel.repositories.ReservationRepository;
 import com.projektowanie.ojektowe.hotel.repositories.RoomRepository;
 import com.projektowanie.ojektowe.hotel.services.IRoomService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Service
 public class RoomService implements IRoomService {
 
     private RoomRepository roomRepository;
     private ReservationRepository reservationRepository;
 
-    @Autowired
-    RoomService(RoomRepository roomRepository, ReservationRepository reservationRepository) {
+    public RoomService(RoomRepository roomRepository, ReservationRepository reservationRepository) {
         this.roomRepository = roomRepository;
         this.reservationRepository = reservationRepository;
     }
-
+    @Override
     public Room add(Room room) {
         return roomRepository.save(room);
     }
-
+    @Override
     public List<Room> getAll() {
         return roomRepository.findAll();
     }
-
+    @Override
     public void delete(Integer number) {
         roomRepository.deleteById(number);
     }
-
+    @Override
     public List<Room> getFree(RoomFilter roomFilter){
         Map<Room, List<Reservation>> roomsWithReservations;
         List<Room> sortedRoomList = roomRepository.findAll(Sort.by("adult"));
