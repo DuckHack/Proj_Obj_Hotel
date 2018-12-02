@@ -17,5 +17,6 @@ public class RoomFilter {
     private Boolean wiFi;
     private Boolean conditioning;
     private Boolean petFriendly;
-    private String roomClass;
+    private Double roomClass;
+    private Integer group;
 }

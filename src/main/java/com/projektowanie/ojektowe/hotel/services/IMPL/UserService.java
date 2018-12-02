@@ -39,7 +39,7 @@ public class UserService implements IUserService {
         if(!userData.isPresent()){
             throw new UserDoesentExistException(String.format("User, which try to login, with email %s, doesn't exist", loginUser.getEmail()));
         }else{
-            if( loginUser.getPassword().equals( userData.get().getPassword() ) ){
+            if( !loginUser.getPassword().equals( userData.get().getPassword() ) ){
                 throw new UserDoesentExistException(String.format("User, which try to login, with email %s, pass wrong password", loginUser.getEmail()));
             }else{
                 return userData.get();

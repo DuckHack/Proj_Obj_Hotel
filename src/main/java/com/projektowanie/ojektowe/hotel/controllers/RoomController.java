@@ -48,4 +48,9 @@ public class RoomController {
     public List<Room> getFreeRooms(@RequestBody RoomFilter roomFilter){
         return RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).getFree(roomFilter);
     }
+
+    @GetMapping("/getFreeGrouped")
+    public List<List<Room>> getFreeRoomsForGroup(@RequestBody RoomFilter roomFilter){
+        return RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).getFreeGrouped(roomFilter);
+    }
 }

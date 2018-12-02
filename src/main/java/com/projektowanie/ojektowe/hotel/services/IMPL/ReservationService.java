@@ -24,9 +24,6 @@ public class ReservationService implements IReservationService {
 
     @Override
     public Reservation add(Reservation reservation) throws ReservationEndBeforeStartException{
-//        for every celebration
-//        is celebraion
-//        use decorator for this celebration
         if( reservation.getEnd().before(reservation.getStart())){
             throw new ReservationEndBeforeStartException("Reservation end date can't be before start");
         }

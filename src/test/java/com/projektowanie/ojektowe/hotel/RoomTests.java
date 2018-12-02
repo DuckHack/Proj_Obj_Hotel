@@ -33,7 +33,7 @@ public class RoomTests {
         int adult = 3;
         int children = 0;
         int number = 1;
-        String roomClass = "single";
+        Double roomClass = 1d;
         boolean condition = true;
         boolean WiFi = false;
         boolean pet = true;

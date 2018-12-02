@@ -10,4 +10,5 @@ public interface IRoomService {
     List<Room> getAll();
     void delete(Integer number);
     List<Room> getFree(RoomFilter roomFilter);
+    List<List<Room>> getFreeGrouped(RoomFilter roomFilter);
 }
