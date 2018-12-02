@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface IReservationService {
     Reservation add(Reservation reservation) throws ReservationEndBeforeStartException;
-    List<Reservation> getByNameOrId(ReservationFilter reservationFilter)throws EmptyReservationFilterException;
+    List<Reservation> getById(ReservationFilter reservationFilter)throws EmptyReservationFilterException;
     void delete(String id);
 }

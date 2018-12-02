@@ -21,6 +21,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -49,21 +51,15 @@ public class ReservationTests {
 
     @Before
     public void before(){
-        new Reservation(0, 1, 2, "UlCh",1, 100d,
+        new Reservation(0, 1, 2,1, 100d,
                 new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
                 new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime());
         Date date = new Date(2019, 1, 2);
-
-        System.out.println("date.getYear()->" + date.getYear() );
-        System.out.println("date.getTime()" + date.getTime() );
-        System.out.println("date" + date );
-        //        new Reservation(0, 1, 2, "UlCh", new Date("20-10-2019"), new Date("20-11-2019"));
-//        new Reservation(0, 1, 2, "UlCh", new Date("20-12-2019"), new Date("20-01-2020"));
     }
 
     @Test
     public void shouldAddFirstReservation() throws ReservationEndBeforeStartException {
-        Reservation reservation = new Reservation(0, 1, 2, "UlCh",2, 200d,
+        Reservation reservation = new Reservation(0, 1, 2,2, 200d,
                 new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
                 new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime());
 
@@ -75,4 +71,17 @@ public class ReservationTests {
 
     }
 
+//    @Test
+//    public void reservationShouldBeUpdatedBySeasonDiscount() throws ReservationEndBeforeStartException{
+//        int discountSize = 5;
+//        Reservation reservation = new Reservation(0, 1, 2,2, 200d,
+//                new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime(),
+//                new GregorianCalendar(2019, Calendar.NOVEMBER, 20).getTime());
+//
+//        Reservation updatedReservation = reservationService.add(reservation);
+//        when(reservationRepository.findByOwnerId(anyInt())).thenReturn(new ArrayList<>());
+//        when(reservationRepository.save(any())).thenReturn()
+//        assertEquals(reservation.getPrice() - reservation.getPrice()*discountSize/100, updatedReservation);
+//    }
+//
 }

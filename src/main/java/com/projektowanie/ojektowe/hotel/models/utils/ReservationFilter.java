@@ -9,8 +9,4 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class ReservationFilter {
     private Integer ownerId;
-    @NotEmpty
-    private Integer room;
-    @NotBlank
-    private String reservePerson;
 }

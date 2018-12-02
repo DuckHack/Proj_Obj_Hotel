@@ -2,7 +2,6 @@ package com.projektowanie.ojektowe.hotel.services.IMPL;
 
 import com.projektowanie.ojektowe.hotel.models.Reservation;
 import com.projektowanie.ojektowe.hotel.models.Room;
-import com.projektowanie.ojektowe.hotel.models.utils.ROOM_CLASSES;
 import com.projektowanie.ojektowe.hotel.models.utils.RoomFilter;
 import com.projektowanie.ojektowe.hotel.repositories.ReservationRepository;
 import com.projektowanie.ojektowe.hotel.repositories.RoomRepository;
@@ -82,12 +81,11 @@ public class RoomService implements IRoomService {
 
     private List<Room> getFreeRoomsInPeriod(Map<Room, List<Reservation>> roomsWithReservations, Date start, Date end){
         return roomsWithReservations.keySet().stream().filter(key ->
-                roomsWithReservations.get(key).stream().noneMatch(reserv ->
-                        ( ( reserv.getStart().before(start) || reserv.getStart().getTime() == start.getTime() )  && reserv.getEnd().after(start) && reserv.getEnd().before(end) ) ||
-                                ( reserv.getStart().after(start) && reserv.getStart().before(end) && ( reserv.getEnd().before(end)|| reserv.getEnd().getTime() == end.getTime() ) ) ||
-                                ( reserv.getStart().after(start) && reserv.getStart().before(end) && reserv.getEnd().after(end) ) ||
-                                ( reserv.getStart().getTime() == start.getTime() && reserv.getEnd().getTime() == end.getTime() )
-                ) ).collect(Collectors.toList());
+                roomsWithReservations.get(key).stream().allMatch(reserv -> (
+                        start.after(reserv.getEnd()) ||
+                        end.before(reserv.getStart()) )
+                )
+        ).collect(Collectors.toList());
 
     }
 

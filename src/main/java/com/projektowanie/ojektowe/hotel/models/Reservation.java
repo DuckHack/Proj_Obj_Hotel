@@ -24,7 +24,6 @@ public class Reservation {
     private Integer bodies;
 //    @NotBlank
     //owner = firstName+secondName;
-    private String owner;
     private Integer ownerId;
     private Double price;
     @Future

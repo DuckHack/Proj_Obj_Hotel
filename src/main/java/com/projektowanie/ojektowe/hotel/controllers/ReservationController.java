@@ -1,9 +1,7 @@
 package com.projektowanie.ojektowe.hotel.controllers;
 
 import com.projektowanie.ojektowe.hotel.exceptions.EmptyReservationFilterException;
-import com.projektowanie.ojektowe.hotel.exceptions.NoReservationFoundException;
 import com.projektowanie.ojektowe.hotel.exceptions.ReservationEndBeforeStartException;
-import com.projektowanie.ojektowe.hotel.exceptions.RoomAlreadyReservedException;
 import com.projektowanie.ojektowe.hotel.models.Reservation;
 import com.projektowanie.ojektowe.hotel.models.utils.ReservationFilter;
 import com.projektowanie.ojektowe.hotel.repositories.ReservationRepository;
@@ -34,7 +32,7 @@ public class ReservationController {
 
     @GetMapping("/filterSearch")
     public List<Reservation> getByFilter(@RequestBody ReservationFilter reservationFilter) throws EmptyReservationFilterException {
-        return ReservationServiceFactory.getReservationService(this.reservationRepository).getByNameOrId(reservationFilter);
+        return ReservationServiceFactory.getReservationService(this.reservationRepository).getById(reservationFilter);
     }
 
     @DeleteMapping("/delete/{id}")

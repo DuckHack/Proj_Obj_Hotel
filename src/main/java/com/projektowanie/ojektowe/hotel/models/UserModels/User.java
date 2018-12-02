@@ -13,8 +13,8 @@ import javax.validation.constraints.Email;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    private static final String systemUser = "User";
-    private static final String systemAdmin = "Admin";
+//    private static final String systemUser = "User";
+//    private static final String systemAdmin = "Admin";
 
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
@@ -27,5 +27,4 @@ public class User {
     private String email;
 //    @NotBlank
     private String password;
-    private Integer reservationsNum;
 }
