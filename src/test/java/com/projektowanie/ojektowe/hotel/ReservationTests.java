@@ -25,63 +25,43 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.Silent.class)
 @SpringBootTest
 public class ReservationTests {
-
-    private Reservation reservation;
 
     @Rule
     public ExpectedException thrown= ExpectedException.none();
 
     @Mock
-    private UserRepository userRepository;
-
-    @Mock
     private ReservationRepository reservationRepository;
-
-    @Mock
-    private RoomRepository roomRepository;
-
-    @Mock
-    private RoomService roomService;
 
     @InjectMocks
     private ReservationService reservationService;
 
-    @Before
-    public void before(){
-        new Reservation(0, 1, 2,1, 100d,
-                new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
-                new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime());
-        Date date = new Date(2019, 1, 2);
+    @Test
+    public void reservationShouldBeUpdatedBySeasonDiscount(){
+        Double discountSize = 5.0;
+        Reservation reservation = new Reservation(0, 1, 2,2, 200d,
+                new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime(),
+                new GregorianCalendar(2019, Calendar.NOVEMBER, 20).getTime());
+
+        when(reservationRepository.findByOwnerId(anyInt())).thenReturn(new ArrayList<>());
+        Double newPrice = reservationService.updateReservationBySeasonDiscount(reservation);
+        Double expectedPrice = 200 - 200.0*discountSize/100.0;
+        assertEquals(expectedPrice, newPrice, 1);
     }
 
     @Test
-    public void shouldAddFirstReservation() throws ReservationEndBeforeStartException {
+    public void reservationShouldBeUpdatedByConstUserDiscount(){
+        Double userReservations = 6.0;
         Reservation reservation = new Reservation(0, 1, 2,2, 200d,
-                new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
-                new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime());
+                new GregorianCalendar(2019, Calendar.JUNE, 20).getTime(),
+                new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime());
 
-        //when
-        when(reservationRepository.save(reservation)).thenReturn(reservation);
-
-        //assert
-        assertEquals(reservationService.add(reservation), reservation);
-
+        when(reservationRepository.findByOwnerId(anyInt())).thenReturn( new ArrayList( Arrays.asList(1,2,3,4,5,6) ));
+        Double newPrice = reservationService.updateReservationByConstUserDiscount(reservation);
+        Double expectedPrice = 200 - 200.0*userReservations/100.0;
+        assertEquals(expectedPrice, newPrice, 1);
     }
 
-//    @Test
-//    public void reservationShouldBeUpdatedBySeasonDiscount() throws ReservationEndBeforeStartException{
-//        int discountSize = 5;
-//        Reservation reservation = new Reservation(0, 1, 2,2, 200d,
-//                new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime(),
-//                new GregorianCalendar(2019, Calendar.NOVEMBER, 20).getTime());
-//
-//        Reservation updatedReservation = reservationService.add(reservation);
-//        when(reservationRepository.findByOwnerId(anyInt())).thenReturn(new ArrayList<>());
-//        when(reservationRepository.save(any())).thenReturn()
-//        assertEquals(reservation.getPrice() - reservation.getPrice()*discountSize/100, updatedReservation);
-//    }
-//
 }

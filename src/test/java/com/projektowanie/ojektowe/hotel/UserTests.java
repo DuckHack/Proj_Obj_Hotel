@@ -35,8 +35,8 @@ public class UserTests {
     public void shouldRegisterUserAsFirst() throws UserAlreadyExistException {
         User user = new User(1, "User", "Andrei", "Kir", "dup@gmail.com", "12345");
         when(userRepository.findAll()).thenReturn(new ArrayList<>());
+        when(userRepository.save(user)).thenReturn(user);
         assertEquals(user, userService.registerUser(user));
-
     }
 
     @Test(expected = UserAlreadyExistException.class)

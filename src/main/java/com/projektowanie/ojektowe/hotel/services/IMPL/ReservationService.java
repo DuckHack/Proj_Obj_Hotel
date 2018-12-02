@@ -26,8 +26,8 @@ public class ReservationService implements IReservationService {
         if( reservation.getEnd().before(reservation.getStart())){
             throw new ReservationEndBeforeStartException("Reservation end date can't be before start");
         }
-        updateReservationBySeasonDiscount(reservation);
-        updateReservationByConstUserDiscount(reservation);
+        reservation.setPrice( updateReservationBySeasonDiscount(reservation) );
+        reservation.setPrice( updateReservationByConstUserDiscount(reservation) );
         return reservationRepository.save(reservation);
     }
 
@@ -52,12 +52,13 @@ public class ReservationService implements IReservationService {
         reservationRepository.deleteById(Integer.parseInt(id));
     }
 
-    private void updateReservationBySeasonDiscount(Reservation reservation){
+    public Double updateReservationBySeasonDiscount(Reservation reservation){
         for(DISCOUNT_PERIODS discountPeriod: DISCOUNT_PERIODS.values()){
             if( isInPeriod(reservation, discountPeriod)){
                 reservation.setPrice( reservation.getPrice() - reservation.getPrice()*discountPeriod.getDiscountSize()/100);
             }
         }
+        return reservation.getPrice();
     }
 
     private Boolean isInPeriod(Reservation reservation, DISCOUNT_PERIODS discount_period){
@@ -67,17 +68,14 @@ public class ReservationService implements IReservationService {
                 discountEnd.getTime() == reservation.getEnd().getTime() || discountEnd.before(reservation.getEnd());
     }
 
-    private void updateReservationByConstUserDiscount(Reservation reservation){
+    public Double updateReservationByConstUserDiscount(Reservation reservation){
         int reservationsNum = reservationRepository.findByOwnerId(reservation.getOwnerId()).size();
-
-        if( reservationsNum == 0 ){
-            return;
-        }
 
         if( reservationsNum >= reservationsNumForStartDiscount ){
             reservation.setPrice( reservation.getPrice() - reservation.getPrice()*reservationsNum/100);
         }else if( reservationsNum >= reservationsNumForHoldDiscountSize ){
             reservation.setPrice( reservation.getPrice() - reservation.getPrice()*reservationsNumForHoldDiscountSize/100);
         }
+        return reservation.getPrice();
     }
 }
