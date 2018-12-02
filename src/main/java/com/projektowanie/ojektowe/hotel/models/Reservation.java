@@ -16,20 +16,20 @@ import java.util.Date;
 @NoArgsConstructor
 public class Reservation {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
-//    @NotEmpty
+    //    @NotEmpty
     private Integer room;
-//    @NotEmpty
+    //    @NotEmpty
     private Integer bodies;
-//    @NotBlank
+    //    @NotBlank
     //owner = firstName+secondName;
     private Integer ownerId;
     private Double price;
     @Future
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date start;
     @Future
-    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date end;
 }

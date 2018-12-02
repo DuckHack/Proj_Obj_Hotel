@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserServiceFactory {
 
-    public static IUserService getUserService(UserRepository userRepository){
+    public static IUserService getUserService(UserRepository userRepository) {
         return new UserService(userRepository);
     }
 }

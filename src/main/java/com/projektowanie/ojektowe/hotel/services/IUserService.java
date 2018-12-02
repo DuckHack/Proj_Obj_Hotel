@@ -10,7 +10,10 @@ import java.util.List;
 public interface IUserService {
 
     User registerUser(User user) throws UserAlreadyExistException;
+
     User logIn(LoginUser loginUser) throws UserDoesentExistException;
+
     List<User> getAllUsers();
+
     void deleteUser(Integer id);
 }

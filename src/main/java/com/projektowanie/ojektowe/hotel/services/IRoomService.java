@@ -7,8 +7,12 @@ import java.util.List;
 
 public interface IRoomService {
     Room add(Room room);
+
     List<Room> getAll();
+
     void delete(Integer number);
+
     List<Room> getFree(RoomFilter roomFilter);
+
     List<List<Room>> getFreeGrouped(RoomFilter roomFilter);
 }

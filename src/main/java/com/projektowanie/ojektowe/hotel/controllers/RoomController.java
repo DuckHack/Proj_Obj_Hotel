@@ -5,7 +5,6 @@ import com.projektowanie.ojektowe.hotel.models.utils.RoomFilter;
 import com.projektowanie.ojektowe.hotel.repositories.ReservationRepository;
 import com.projektowanie.ojektowe.hotel.repositories.RoomRepository;
 import com.projektowanie.ojektowe.hotel.services.Factories.RoomServiceFactory;
-import com.projektowanie.ojektowe.hotel.services.IMPL.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,28 +28,28 @@ public class RoomController {
 
 
     @GetMapping("/getAll")
-    public List<Room> getRooms(){
+    public List<Room> getRooms() {
         return RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).getAll();
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Room> addRoom(@RequestBody Room room){
+    public ResponseEntity<Room> addRoom(@RequestBody Room room) {
         Room addedRoom = RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).add(room);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedRoom);
     }
 
     @DeleteMapping("/delete/{number}")
-    public void deleteRoom(@PathVariable(value = "number") String number){
+    public void deleteRoom(@PathVariable(value = "number") String number) {
         RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).delete(Integer.parseInt(number));
     }
 
     @GetMapping("/getFree")
-    public List<Room> getFreeRooms(@RequestBody RoomFilter roomFilter){
+    public List<Room> getFreeRooms(@RequestBody RoomFilter roomFilter) {
         return RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).getFree(roomFilter);
     }
 
     @GetMapping("/getFreeGrouped")
-    public List<List<Room>> getFreeRoomsForGroup(@RequestBody RoomFilter roomFilter){
+    public List<List<Room>> getFreeRoomsForGroup(@RequestBody RoomFilter roomFilter) {
         return RoomServiceFactory.getRoomService(this.roomRepository, this.reservationRepository).getFreeGrouped(roomFilter);
     }
 }

@@ -41,13 +41,13 @@ public class RoomTests {
         RoomFilter roomFilter = new RoomFilter(
                 new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
                 new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
-                1d, 0,20, false,false,false,
-                0d,10);
+                1d, 0, 20, false, false, false,
+                0d, 10);
 
         Room room1 = new Room(
-                1,2d,10, false,true,false, 3d);
+                1, 2d, 10, false, true, false, 3d);
         Room room2 = new Room(
-                2,2d,10, false,true,false,3d);
+                2, 2d, 10, false, true, false, 3d);
         Room room3 = new Room(
                 3, 2d, 10, false, true, false, 3d);
         Room room4 = new Room(
@@ -59,24 +59,24 @@ public class RoomTests {
 
         List<Room> roomlist = Arrays.asList(room1, room2, room3, room4, room5, room6);
 
-        when(roomRepository.findAll(Sort.by(Direction.DESC,"roomClass"))).thenReturn(roomlist);
+        when(roomRepository.findAll(Sort.by(Direction.DESC, "roomClass"))).thenReturn(roomlist);
         when(reservationRepository.findAllByRoomNumber(anyInt())).thenReturn(new ArrayList<>());
         List<List<Room>> result = roomService.getFreeGrouped(roomFilter);
         assertEquals(4, result.get(0).size());
     }
 
     @Test
-    public void shouldReturnOnlyOneOnlyOneFreeRoom(){
+    public void shouldReturnOnlyOneOnlyOneFreeRoom() {
         RoomFilter roomFilter = new RoomFilter(
                 new GregorianCalendar(2019, Calendar.SEPTEMBER, 20).getTime(),
                 new GregorianCalendar(2019, Calendar.DECEMBER, 20).getTime(),
-                1d, 0,20, true,true,true,
-                0d,0);
+                1d, 0, 20, true, true, true,
+                0d, 0);
 
         Room room1 = new Room(
-                1,2d,10, true,false,false, 3d);
+                1, 2d, 10, true, false, false, 3d);
         Room room2 = new Room(
-                2,2d,10, false,true,false,3d);
+                2, 2d, 10, false, true, false, 3d);
         Room room3 = new Room(
                 3, 2d, 10, false, false, true, 3d);
         Room room4 = new Room(
@@ -89,11 +89,11 @@ public class RoomTests {
         List<Room> roomlist = Arrays.asList(room1, room2, room3, room4, room5, room6);
 
 
-        Reservation reservation = new Reservation(0, 5, 2,1, 100d,
+        Reservation reservation = new Reservation(0, 5, 2, 1, 100d,
                 new GregorianCalendar(2019, Calendar.AUGUST, 20).getTime(),
                 new GregorianCalendar(2020, Calendar.AUGUST, 20).getTime());
 
-        when(roomRepository.findAll(Sort.by(Direction.ASC,"roomClass"))).thenReturn(roomlist);
+        when(roomRepository.findAll(Sort.by(Direction.ASC, "roomClass"))).thenReturn(roomlist);
         when(reservationRepository.findAllByRoomNumber(1)).thenReturn(new ArrayList<>());
         when(reservationRepository.findAllByRoomNumber(2)).thenReturn(new ArrayList<>());
         when(reservationRepository.findAllByRoomNumber(3)).thenReturn(new ArrayList<>());

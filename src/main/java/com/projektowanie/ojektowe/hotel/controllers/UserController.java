@@ -5,9 +5,7 @@ import com.projektowanie.ojektowe.hotel.exceptions.UserDoesentExistException;
 import com.projektowanie.ojektowe.hotel.models.UserModels.LoginUser;
 import com.projektowanie.ojektowe.hotel.models.UserModels.User;
 import com.projektowanie.ojektowe.hotel.repositories.UserRepository;
-import com.projektowanie.ojektowe.hotel.services.Factories.RoomServiceFactory;
 import com.projektowanie.ojektowe.hotel.services.Factories.UserServiceFactory;
-import com.projektowanie.ojektowe.hotel.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,17 +28,17 @@ public class UserController {
     }
 
     @PostMapping("/email")
-    public ResponseEntity<User> login(@RequestBody LoginUser loginUser)throws UserDoesentExistException {
+    public ResponseEntity<User> login(@RequestBody LoginUser loginUser) throws UserDoesentExistException {
         return ResponseEntity.status(HttpStatus.OK).body(UserServiceFactory.getUserService(userRepository).logIn(loginUser));
     }
 
     @GetMapping("/all")
-    public List<User> getAll(){
+    public List<User> getAll() {
         return UserServiceFactory.getUserService(userRepository).getAllUsers();
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteRoom(@PathVariable(value = "id") Integer id){
+    public void deleteRoom(@PathVariable(value = "id") Integer id) {
         UserServiceFactory.getUserService(userRepository).deleteUser(id);
     }
 }

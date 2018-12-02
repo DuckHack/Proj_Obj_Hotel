@@ -1,6 +1,5 @@
 package com.projektowanie.ojektowe.hotel;
 
-import java.util.Optional;
 import com.projektowanie.ojektowe.hotel.exceptions.UserAlreadyExistException;
 import com.projektowanie.ojektowe.hotel.exceptions.UserDoesentExistException;
 import com.projektowanie.ojektowe.hotel.models.UserModels.LoginUser;
@@ -17,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -41,7 +41,7 @@ public class UserTests {
 
     @Test(expected = UserAlreadyExistException.class)
     public void shouldNotRegisterUserBecauseOfCollision() throws UserAlreadyExistException {
-        when(userRepository.findAll()).thenReturn( Arrays.asList( new User(1, "User", "Andrei", "Kir", "dup@gmail.com", "12345") ));
+        when(userRepository.findAll()).thenReturn(Arrays.asList(new User(1, "User", "Andrei", "Kir", "dup@gmail.com", "12345")));
         User user = new User(1, "User", "Andrei", "Kir", "dup@gmail.com", "12345");
         userService.registerUser(user);
     }
@@ -50,12 +50,12 @@ public class UserTests {
     public void shouldRegisterUser() throws UserAlreadyExistException {
         User user = new User(1, "User", "Andrei", "Kir", "vladik@gmail.com", "12345");
         when(userRepository.save(user)).thenReturn(user);
-        when(userRepository.findAll()).thenReturn( Arrays.asList( new User(1, "User", "Andrei", "Kir", "dup@gmail.com", "12345") ));
+        when(userRepository.findAll()).thenReturn(Arrays.asList(new User(1, "User", "Andrei", "Kir", "dup@gmail.com", "12345")));
         assertEquals(user, userService.registerUser(user));
     }
 
     @Test(expected = UserDoesentExistException.class)
-    public void shouldRejectAccess() throws UserDoesentExistException{
+    public void shouldRejectAccess() throws UserDoesentExistException {
         String userEmail = "vladik@gmail.com";
         User user = new User(1, "User", "Andrei", "Kir", userEmail, "12345");
         Optional<User> returnUser = Optional.of((User) user);
@@ -66,7 +66,7 @@ public class UserTests {
     }
 
     @Test
-    public void shouldBeAccepted() throws UserDoesentExistException{
+    public void shouldBeAccepted() throws UserDoesentExistException {
         String userEmail = "vladik@gmail.com";
         User user = new User(1, "User", "Andrei", "Kir", userEmail, "12345");
         Optional<User> returnUser = Optional.of((User) user);

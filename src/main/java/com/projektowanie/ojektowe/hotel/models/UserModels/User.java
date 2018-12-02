@@ -17,14 +17,14 @@ public class User {
 //    private static final String systemAdmin = "Admin";
 
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     private String type;
     private String firstName;
     private String lastName;
-//    @NotBlank
+    //    @NotBlank
     @Email
     private String email;
-//    @NotBlank
+    //    @NotBlank
     private String password;
 }

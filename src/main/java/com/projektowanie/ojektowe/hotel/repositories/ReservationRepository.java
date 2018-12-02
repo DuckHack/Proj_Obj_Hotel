@@ -10,12 +10,12 @@ import java.util.List;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
     @Query(value = "select * from reservation where room = :room", nativeQuery = true)
-    List<Reservation> findAllByRoomNumber(@Param("room")Integer room);
+    List<Reservation> findAllByRoomNumber(@Param("room") Integer room);
 
     @Query(value = "select * from reservation where owner = :owner", nativeQuery = true)
-    List<Reservation> findByReservePerson(@Param("owner")String person);
+    List<Reservation> findByReservePerson(@Param("owner") String person);
 
     @Query(value = "select * from reservation where owner = :ownerId", nativeQuery = true)
-    List<Reservation> findByOwnerId(@Param("ownerId")Integer ownerId);
+    List<Reservation> findByOwnerId(@Param("ownerId") Integer ownerId);
 
 }

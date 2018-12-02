@@ -21,24 +21,27 @@ public class RoomService implements IRoomService {
         this.roomRepository = roomRepository;
         this.reservationRepository = reservationRepository;
     }
+
     @Override
     public Room add(Room room) {
         return roomRepository.save(room);
     }
+
     @Override
     public List<Room> getAll() {
-        return roomRepository.findAll(Sort.by(Direction.ASC,"roomClass"));
+        return roomRepository.findAll(Sort.by(Direction.ASC, "roomClass"));
     }
+
     @Override
     public void delete(Integer number) {
         roomRepository.deleteById(number);
     }
 
     @Override
-    public List<List<Room>> getFreeGrouped(RoomFilter roomFilter){
+    public List<List<Room>> getFreeGrouped(RoomFilter roomFilter) {
         Map<Room, List<Reservation>> roomsWithReservations;
         List<Room> freeRoomsListInPeriod;
-        List<Room> sortedRoomList = roomRepository.findAll(Sort.by(Direction.DESC,"roomClass"));
+        List<Room> sortedRoomList = roomRepository.findAll(Sort.by(Direction.DESC, "roomClass"));
         Date start = roomFilter.getStart();
         Date end = roomFilter.getEnd();
 
@@ -53,9 +56,9 @@ public class RoomService implements IRoomService {
     }
 
     @Override
-    public List<Room> getFree(RoomFilter roomFilter){
+    public List<Room> getFree(RoomFilter roomFilter) {
         Map<Room, List<Reservation>> roomsWithReservations;
-        List<Room> sortedRoomList = roomRepository.findAll(Sort.by(Direction.ASC,"roomClass"));
+        List<Room> sortedRoomList = roomRepository.findAll(Sort.by(Direction.ASC, "roomClass"));
         Date start = roomFilter.getStart();
         Date end = roomFilter.getEnd();
         List<Room> roomsAfterBasicFilters = getRoomsAfterFiltering(sortedRoomList, roomFilter);
@@ -65,37 +68,37 @@ public class RoomService implements IRoomService {
     }
 
 
-    private List<Room> getRoomsAfterFiltering(List<Room> roomList, RoomFilter roomFilter){
+    private List<Room> getRoomsAfterFiltering(List<Room> roomList, RoomFilter roomFilter) {
         return roomList.stream()
                 .filter(room -> (room.getPrice() >= roomFilter.getStartPrice()))
                 .filter(room -> (room.getPrice() <= roomFilter.getEndPrice()))
                 .filter(room -> (room.getRating() >= roomFilter.getRating()))
-                .filter(room -> ( !roomFilter.getConditioning() || roomFilter.getConditioning().equals(room.getConditioning()))  )
-                .filter(room -> ( !roomFilter.getWiFi() || roomFilter.getWiFi().equals(room.getWiFi())) )
-                .filter(room -> ( !roomFilter.getPetFriendly() || roomFilter.getPetFriendly().equals(room.getPetFriendly())) )
-                .filter(room -> ( roomFilter.getRoomClass() == 0 ) || roomFilter.getRoomClass().equals(room.getRoomClass()) )
+                .filter(room -> (!roomFilter.getConditioning() || roomFilter.getConditioning().equals(room.getConditioning())))
+                .filter(room -> (!roomFilter.getWiFi() || roomFilter.getWiFi().equals(room.getWiFi())))
+                .filter(room -> (!roomFilter.getPetFriendly() || roomFilter.getPetFriendly().equals(room.getPetFriendly())))
+                .filter(room -> (roomFilter.getRoomClass() == 0) || roomFilter.getRoomClass().equals(room.getRoomClass()))
                 //without group reservations
                 .collect(Collectors.toList());
 
     }
 
-    private List<Room> getFreeRoomsInPeriod(Map<Room, List<Reservation>> roomsWithReservations, Date start, Date end){
+    private List<Room> getFreeRoomsInPeriod(Map<Room, List<Reservation>> roomsWithReservations, Date start, Date end) {
         return roomsWithReservations.keySet().stream().filter(key ->
                 roomsWithReservations.get(key).stream().allMatch(reserv -> (
                         start.after(reserv.getEnd()) ||
-                        end.before(reserv.getStart()) )
+                                end.before(reserv.getStart()))
                 )
         ).collect(Collectors.toList());
 
     }
 
-    private List<List<Room>> getGroupedRooms(List<Room> freeRooms, Integer groupSize){
+    private List<List<Room>> getGroupedRooms(List<Room> freeRooms, Integer groupSize) {
         Integer bedsCounter;
         LinkedList<Room> freeRoomsList = new LinkedList<>(freeRooms);
         List<Room> group;
         Room room;
         List<List<Room>> groupedLists = new ArrayList<>();
-        while ( freeRoomsList.size() > 0) {
+        while (freeRoomsList.size() > 0) {
             bedsCounter = 0;
             group = new ArrayList<>();
             while (bedsCounter < groupSize) {
@@ -106,7 +109,7 @@ public class RoomService implements IRoomService {
                 group.add(room);
                 bedsCounter += room.getRoomClass().intValue();
             }
-            if( bedsCounter >= groupSize ) {
+            if (bedsCounter >= groupSize) {
                 groupedLists.add(group);
             }
         }

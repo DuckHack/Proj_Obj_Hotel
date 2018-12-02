@@ -20,7 +20,7 @@ public class ReservationController {
     private ReservationRepository reservationRepository;
 
     @Autowired
-    public ReservationController(ReservationRepository reservationRepository){
+    public ReservationController(ReservationRepository reservationRepository) {
         this.reservationRepository = reservationRepository;
     }
 
@@ -36,7 +36,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public void delete(@PathVariable String id){
+    public void delete(@PathVariable String id) {
         ReservationServiceFactory.getReservationService(this.reservationRepository).delete(id);
     }
 }
