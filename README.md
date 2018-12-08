@@ -27,80 +27,80 @@ Wtedy projekt uruchamiamy poleceniem java -jar <nazwa pliku>
 ### Classes:
 **ReservationController:**
 
-        Konstruktor: 
+	Konstruktor: 
         
-            ReservationController(ReservationRepository reservationRepository) 
+		ReservationController(ReservationRepository reservationRepository) 
         
-        Metody:
+	Metody:
         
-            addReservation (Metoda pozwalająca na dodanie rezerwacji)
-              @PostMapping(value="/add")
-              public org.springframework.http.ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation)
-              throws ReservationEndBeforeStartException
+	addReservation (Metoda pozwalająca na dodanie rezerwacji)
+		@PostMapping(value="/add")
+		public org.springframework.http.ResponseEntity<Reservation> addReservation(@RequestBody Reservation reservation)
+		throws ReservationEndBeforeStartException
             
-            getByFilter (Metoda, która pozwala otrzymać przez filtrowanie listę wykonanych rezerwacji)
-              @PostMapping(value="/filterSearch")
-              public java.util.List<Reservation> getByFilter(@RequestBody ReservationFilter reservationFilter)
-              throws EmptyReservationFilterException
+	getByFilter (Metoda, która pozwala otrzymać przez filtrowanie listę wykonanych rezerwacji)
+		@PostMapping(value="/filterSearch")
+		public java.util.List<Reservation> getByFilter(@RequestBody ReservationFilter reservationFilter)
+		throws EmptyReservationFilterException
             
-            delete (Metoda, którą usuwamy wybraną rezerwację)
-              @DeleteMapping(value="/delete/{id}")
-              public void delete(@PathVariablem java.lang.String id)
+	delete (Metoda, którą usuwamy wybraną rezerwację)
+		@DeleteMapping(value="/delete/{id}")
+		public void delete(@PathVariablem java.lang.String id)
 
 
 **RoomController:**  
         
-        Konstruktor: 
+	Konstruktor: 
             
-            RoomController(RoomRepository roomRepository, ReservationRepository reservationRepository) 
+		RoomController(RoomRepository roomRepository, ReservationRepository reservationRepository) 
         
-        Metody:
+	Metody:
             
-            getRooms (Metoda pozwalająca na pobranie wszystkich pokoi)
-              @GetMapping(value="/getAll")
-              public java.util.List<Room> getRooms()
+		getRooms (Metoda pozwalająca na pobranie wszystkich pokoi)
+		@GetMapping(value="/getAll")
+		public java.util.List<Room> getRooms()
             
-            addRoom (Metoda pozwalająca na dodanie pokoju)
-              @PostMapping(value="/add")
-              public org.springframework.http.ResponseEntity<Room> addRoom(@RequestBody Room room)
+	addRoom (Metoda pozwalająca na dodanie pokoju)
+		@PostMapping(value="/add")
+		public org.springframework.http.ResponseEntity<Room> addRoom(@RequestBody Room room)
             
-            deleteRoom (Metoda pozwalająca na usunięcie pokoju)
-              @DeleteMapping(value="/delete/{number}")
-              public void deleteRoom(@PathVariable(value="number") java.lang.String number)
+	deleteRoom (Metoda pozwalająca na usunięcie pokoju)
+		@DeleteMapping(value="/delete/{number}")
+		public void deleteRoom(@PathVariable(value="number") java.lang.String number)
             
-            getFreeRooms (Metoda pozwalająca na pobranie pokoi bez rezerwacji)
-              @PostMapping(value="/getFree")
-              ublic java.util.List<Room> getFreeRooms(@RequestBody RoomFilter roomFilter)
+	getFreeRooms (Metoda pozwalająca na pobranie pokoi bez rezerwacji)
+		@PostMapping(value="/getFree")
+		ublic java.util.List<Room> getFreeRooms(@RequestBody RoomFilter roomFilter)
             
-            getFreeRoomsForGroup (Metoda pozwalająca na pobranie pokoi bez rezerwacji dla grupy)
-              @PostMapping(value="/getFreeGrouped")
-              public java.util.List<java.util.List<Room>> getFreeRoomsForGroup(@RequestBody RoomFilter roomFilter)
+	getFreeRoomsForGroup (Metoda pozwalająca na pobranie pokoi bez rezerwacji dla grupy)
+		@PostMapping(value="/getFreeGrouped")
+		public java.util.List<java.util.List<Room>> getFreeRoomsForGroup(@RequestBody RoomFilter roomFilter)
 
 **UserController:**
         
-        Konstruktor: 
+	Konstruktor: 
             
-            UserController() 
+		UserController() 
         
-        Metody:
+	Metody:
             
-            register
-              @PostMapping(value="/register")
-              public org.springframework.http.ResponseEntity<User> register(@RequestBody User user)
-              throws UserAlreadyExistException
+	register
+		@PostMapping(value="/register")
+		public org.springframework.http.ResponseEntity<User> register(@RequestBody User user)
+		throws UserAlreadyExistException
             
-            login
-              @PostMapping(value="/email")
-              public org.springframework.http.ResponseEntity<User> login(@RequestBody LoginUser loginUser)
-              throws UserDoesentExistException
+	login
+		@PostMapping(value="/email")
+		public org.springframework.http.ResponseEntity<User> login(@RequestBody LoginUser loginUser)
+		throws UserDoesentExistException
             
-            getAll
-              @GetMapping(value="/all")
-              public java.util.List<User> getAll()
+	getAll
+		@GetMapping(value="/all")
+		public java.util.List<User> getAll()
               
-            deleteRoom
-              @DeleteMapping(value="/delete/{id}")
-              public void deleteRoom(@PathVariable(value="id") java.lang.Integer id)
+	deleteRoom
+		@DeleteMapping(value="/delete/{id}")
+		public void deleteRoom(@PathVariable(value="id") java.lang.Integer id)
               
               
 ## com.projektowanie.ojektowe.model
