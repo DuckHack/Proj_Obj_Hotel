@@ -105,7 +105,7 @@ Wtedy projekt uruchamiamy poleceniem java -jar <nazwa pliku>
               
 ## com.projektowanie.ojektowe.model
 
-*Wyjątki w Javie to specjalne obiekty, które poza standardowymi operacjami na obiektach możemy także rzucać za pomocą słowa kluczowego throws, co powoduje natychmiastowe przerwanie działania wątku (w najprostszym przypadku — aplikacji) oraz przejście do pierwszego napotkanego miejsca, które ten wyjątek jest w stanie obsłużyć. Nieobsłużony wyjątek uśmierca bieżący wątek.*
+*Dana klasa posiadająca pola oraz metody, które ją reprezentują.*
 
 ### Classes:
 **Reservation**
