@@ -110,37 +110,37 @@ Wtedy projekt uruchamiamy poleceniem java -jar <nazwa pliku>
 ### Classes:
 **Reservation**
 
-        public class Reservation {
-            @Id
-            @GeneratedValue(strategy = GenerationType.SEQUENCE)
-            private Integer id;
-            //@NotEmpty
-            private Integer room;
-            //@NotEmpty
-            private Integer bodies;
-            //@NotBlank
-            //owner = firstName+secondName;
-            private Integer ownerId;
-            private Double price;
-            @Future
-            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-            private Date start;
-            @Future
-            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-            private Date end;
-        }
+	public class Reservation {
+		@Id
+		@GeneratedValue(strategy = GenerationType.SEQUENCE)
+		private Integer id;
+		//@NotEmpty
+		private Integer room;
+		//@NotEmpty
+		private Integer bodies;
+		//@NotBlank
+		//owner = firstName+secondName;
+		private Integer ownerId;
+		private Double price;
+		@Future
+		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+		private Date start;
+		@Future
+		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+		private Date end;
+	}
            
 **Room**
 
-        public class Room {
-	    @Id
-	    private Integer number;
-	    private Double rating;
-	    private Integer price;
-	    private Boolean wiFi;
-	    private Boolean conditioning;
-	    private Boolean petFriendly;
-	    private Double roomClass;
+	public class Room {
+		@Id
+		private Integer number;
+		private Double rating;
+		private Integer price;
+		private Boolean wiFi;
+		private Boolean conditioning;
+		private Boolean petFriendly;
+		private Double roomClass;
 	}
 
 ## com.projektowanie.ojektowe.hotel.models.UserModels
@@ -148,25 +148,25 @@ Wtedy projekt uruchamiamy poleceniem java -jar <nazwa pliku>
 ### Classes:
 **LoginUser**
 
-        public class LoginUser {
-	    private String email;
-	    private String password;
+	public class LoginUser {
+		private String email;
+		private String password;
 	}
            
 **User**
 
-        public class User {
-	    @Id
-	    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-	    private int id;
-	    private String type;
-	    private String firstName;
-	    private String lastName;
-	    //@NotBlank
-	    @Email
-	    private String email;
-	    //@NotBlank
-	    private String password;
+	public class User {
+		@Id
+		@GeneratedValue(strategy = GenerationType.SEQUENCE)
+		private int id;
+		private String type;
+		private String firstName;
+		private String lastName;
+		//@NotBlank
+		@Email
+		private String email;
+		//@NotBlank
+		private String password;
 	}
 	    
 ## com.projektowanie.ojektowe.hotel.models.utils
@@ -174,66 +174,66 @@ Wtedy projekt uruchamiamy poleceniem java -jar <nazwa pliku>
 ### Classes:
 **ReservationFilter**
 
-        public class ReservationFilter {
-   	    private Integer ownerId;
+	public class ReservationFilter {
+		private Integer ownerId;
 	}
            
 **RoomFilter**
 
-        public class RoomFilter {
-	    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-	    private Date start;
-	    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-	    private Date end;
-	    private Double rating;
-	    private Integer startPrice;
-	    private Integer endPrice;
-	    private Boolean wiFi;
-	    private Boolean conditioning;
-	    private Boolean petFriendly;
-	    private Double roomClass;
-	    private Integer group;
+	public class RoomFilter {
+		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+		private Date start;
+		@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+		private Date end;
+		private Double rating;
+		private Integer startPrice;
+		private Integer endPrice;
+		private Boolean wiFi;
+		private Boolean conditioning;
+		private Boolean petFriendly;
+		private Double roomClass;
+		private Integer group;
 	}
 	    
 
 ### Enums:	
 **DISCOUNT_PERIODS**
 
-        public enum DISCOUNT_PERIODS {
-	    AUTUMN(1, 9, 1, 3, 5);
+	public enum DISCOUNT_PERIODS {
+		AUTUMN(1, 9, 1, 3, 5);
 
-	    private Integer startDay;
-	    private Integer startMonth;
-	    private Integer endDay;
-	    private Integer endMonth;
-	    private Integer discountSize;
+		private Integer startDay;
+		private Integer startMonth;
+		private Integer endDay;
+		private Integer endMonth;
+		private Integer discountSize;
 
-	    DISCOUNT_PERIODS(Integer startDay, Integer startMonth, Integer endDay, Integer endMonth, Integer discountSize) {
-		this.startDay = startDay;
-		this.startMonth = startMonth;
-		this.endDay = endDay;
-		this.endMonth = endMonth;
-		this.discountSize = discountSize;
-	    }
+		DISCOUNT_PERIODS(Integer startDay, Integer startMonth, Integer endDay, Integer endMonth, Integer discountSize) {
+			this.startDay = startDay;
+			this.startMonth = startMonth;
+			this.endDay = endDay;
+			this.endMonth = endMonth;
+			this.discountSize = discountSize;
+		}
 
-	    public Integer getDiscountSize() {
-		return discountSize;
-	    }
+		public Integer getDiscountSize() {
+			return discountSize;
+		}
 
-	    public Integer getEndDay() {
-		return endDay;
-	    }
+		public Integer getEndDay() {
+			return endDay;
+		}
 
-	    public Integer getEndMonth() {
-		return endMonth;
-	    }
+		public Integer getEndMonth() {
+			return endMonth;
+		}
 
-	    public Integer getStartDay() {
-		return startDay;
-	    }
+		public Integer getStartDay() {
+			return startDay;
+		}
 
-	    public Integer getStartMonth() {
-		return startMonth;
-	    }
+		public Integer getStartMonth() {
+			return startMonth;
+		}
 	}
  
