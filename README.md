@@ -103,50 +103,58 @@ Wtedy projekt uruchamiamy poleceniem java -jar <nazwa pliku>
               public void deleteRoom(@PathVariable(value="id") java.lang.Integer id)
               
               
-## com.projektowanie.ojektowe.exceptions
+## com.projektowanie.ojektowe.model
 
 *Wyjątki w Javie to specjalne obiekty, które poza standardowymi operacjami na obiektach możemy także rzucać za pomocą słowa kluczowego throws, co powoduje natychmiastowe przerwanie działania wątku (w najprostszym przypadku — aplikacji) oraz przejście do pierwszego napotkanego miejsca, które ten wyjątek jest w stanie obsłużyć. Nieobsłużony wyjątek uśmierca bieżący wątek.*
 
-### Exceptions:
-**EmptyReservationFilterException**
+### Classes:
+**Reservation**
 
         Konstruktor: 
         
             public EmptyReservationFilterException(java.lang.String msg)
-            
-**NoReservationFoundException**
+           
+**Room**
 
         Konstruktor: 
         
-            public NoReservationFoundException(java.lang.String msg)
-   
-**ReservationEndBeforeStartException**
+            public EmptyReservationFilterException(java.lang.String msg)
+
+## com.projektowanie.ojektowe.hotel.models.UserModels
+
+### Classes:
+**LoginUser**
 
         Konstruktor: 
         
-            public ReservationEndBeforeStartException(java.lang.String msg)
-   
-**RoomAlreadyReservedException**
+            public EmptyReservationFilterException(java.lang.String msg)
+           
+**User**
 
         Konstruktor: 
         
-            public RoomAlreadyReservedException(java.lang.String msg)
-   
-**UnableToAddReservationException**
+            public EmptyReservationFilterException(java.lang.String msg)
+	    
+## com.projektowanie.ojektowe.hotel.models.utils
+
+### Classes:
+**ReservationFilter**
 
         Konstruktor: 
         
-            public UnableToAddReservationException(java.lang.String msg)
-   
-**UserAlreadyExistException**
+            public EmptyReservationFilterException(java.lang.String msg)
+           
+**RoomFilter**
 
         Konstruktor: 
         
-            public UserAlreadyExistException(java.lang.String msg)
-   
-**UserDoesentExistException** 
+            public EmptyReservationFilterException(java.lang.String msg)
+	    
+
+### Enums:	
+**DISCOUNT_PERIODS**
 
         Konstruktor: 
         
-            public UserDoesentExistException(java.lang.String msg)
+            public EmptyReservationFilterException(java.lang.String msg)
  
